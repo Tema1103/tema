@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Видео</title>
+</head>
+<body style="text-align: center;">
+    <h2>Наведи камеру на изображение</h2>
+    <video id="arVideo" width="320" height="240" controls>
+        <source src="https://your-video-link.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <script>
+        // Автостарт видео при загрузке страницы
+        window.onload = function() {
+            document.getElementById("arVideo").play();
+        };
+    </script>
+</body>
+</html>
