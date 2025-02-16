@@ -13,31 +13,43 @@
       device-orientation-permission-ui="enabled: false"
     >
       <a-assets>
-        <!-- Изображение для отслеживания -->
+        <!-- ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЁ ВИДЕО -->
+        <video id="myVideo" src="https://www.youtube.com/watch?v=msndsHHldmE&t=3s" preload="auto" loop playsinline muted></video>
+
+        <!-- Изображение-маркер -->
         <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" />
-        <!-- Ваше видео -->
-        <video id="myVideo" autoplay loop muted crossorigin="anonymous">
-          <source src="https://www.youtube.com/watch?v=msndsHHldmE&t=3s" type="video/mp4" />
-          Ваш браузер не поддерживает видео.
-        </video>
       </a-assets>
 
-      <!-- Камера -->
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- Целевое изображение и видео -->
+      <!-- AR-ОБЪЕКТ -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Плоскость с изображением для отслеживания -->
-        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-        <!-- Видео, которое будет воспроизводиться -->
         <a-video
+          id="videoPlane"
           src="#myVideo"
           position="0 0 0.1"
           width="1"
-          height="0.5625" <!-- Соотношение сторон 16:9 -->
-          rotation="0 0 0"
+          height="0.5"
+          visible="true"
         ></a-video>
       </a-entity>
     </a-scene>
+
+    <script>
+      const video = document.querySelector("#myVideo");
+      const videoPlane = document.querySelector("#videoPlane");
+
+      // Запуск видео при обнаружении маркера
+      videoPlane.addEventListener("targetFound", () => {
+        console.log("МАРКЕР НАЙДЕН");
+        video.play();
+      });
+
+      // Остановка видео, если маркер пропадает
+      videoPlane.addEventListener("targetLost", () => {
+        console.log("МАРКЕР ПРОПАЛ");
+        video.pause();
+      });
+    </script>
   </body>
 </html>
